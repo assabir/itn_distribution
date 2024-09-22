@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ITN Distribution</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+
+    <!-- Sign Out Button -->
+    <div class="sign-out">
+      <a href="/logout">Sign Out</a>
+    </div>
+
+    <h1>ITN Distribution Form</h1>
+
+    <form method="POST"  action="/api/distribution">
+      <label for="householdId">Household ID</label>
+      <input type="text" id="householdId" name="household_id" required>
+
+      <label for="headName">Household Head Name</label>
+      <input type="text" id="headName" name="household_head_name" required>
+
+      <label for="familyMembers">Number of Family Members</label>
+      <input type="number" id="familyMembers" name="family_members" required>
+
+      <label for="itnsDistributed">ITNs Distributed</label>
+      <input type="number" id="itnsDistributed" name="itns_distributed" required>
+
+      <label for="distributionDate">Distribution Date</label>
+      <input type="date" id="distributionDate" name="distribution_date" required>
+
+      <button type="submit">Submit Data</button>
+    </form>
+
+  </div>
+</body>
+</html>

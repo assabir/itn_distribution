@@ -1,0 +1,29 @@
+{
+  "name": "itn_distribution",
+  "version": "1.0.0",
+  "description": "ITN distribution app with SQLite and authentication",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/assabir/itn_distribution.git"
+  },
+  "keywords": [
+    "ITN"
+  ],
+  "author": "Assabiru Musa Dibal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/assabir/itn_distribution/issues"
+  },
+  "homepage": "https://github.com/assabir/itn_distribution#readme",
+  "dependencies": {
+    "express": "^4.21.0",
+    "ejs": "^3.1.6",
+    "bcrypt": "^5.0.1",
+    "express-session": "^1.17.2",
+    "sqlite3": "^5.0.2"
+  }
+}
