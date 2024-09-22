@@ -14,9 +14,17 @@
       <a href="/logout">Sign Out</a>
     </div>
 
+    <!-- View ITN Records Button -->
+    <div class="view-itn">
+      <button id="viewRecordsBtn">View ITN Records</button>
+    </div>
+
     <h1>ITN Distribution Form</h1>
 
-    <form method="POST"  action="/api/distribution">
+    <!-- Notification element -->
+    <!-- <div id="notification" style="display:none;"></div> -->
+
+    <form id="itnForm">
       <label for="householdId">Household ID</label>
       <input type="text" id="householdId" name="household_id" required>
 
@@ -35,6 +43,94 @@
       <button type="submit">Submit Data</button>
     </form>
 
+    <!-- Table to display ITN records -->
+    <div id="recordsContainer" style="display:none;">
+      <h2>ITN Distribution Records</h2>
+      <table id="itnRecordsTable" border="1">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Household ID</th>
+            <th>Household Head Name</th>
+            <th>Family Members</th>
+            <th>ITNs Distributed</th>
+            <th>Distribution Date</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
   </div>
+
+  <script>
+    document.getElementById('itnForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent default form submission
+
+      // Collect form data
+      const formData = new FormData(this);
+
+      // Send POST request using Fetch API
+      fetch('/api/distribution', {
+        method: 'POST',
+        body: new URLSearchParams(formData), // Convert formData to URL-encoded format
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Show notification based on the response
+        // const notification = document.getElementById('notification');
+        alert(data.message)
+        // if (data.error) {
+        //   notification.textContent = data.error;
+        //   notification.style.backgroundColor = 'red'; // Error color
+        // } else {
+        //   notification.textContent = data.message;
+        //   notification.style.backgroundColor = 'green'; // Success color
+        // }
+        // notification.style.display = 'block'; // Show the notification
+      })
+      .catch(error => {
+        // Handle fetch errors
+        const notification = document.getElementById('notification');
+        notification.textContent = 'Failed to submit data';
+        notification.style.backgroundColor = 'red';
+        notification.style.display = 'block';
+      });
+    });
+
+    // Handle view ITN records button click
+    document.getElementById('viewRecordsBtn').addEventListener('click', function() {
+      fetch('/api/itn-records') // Endpoint to get ITN records
+      .then(response => response.json())
+      .then(data => {
+        const recordsContainer = document.getElementById('recordsContainer');
+        const tableBody = document.querySelector('#itnRecordsTable tbody');
+        tableBody.innerHTML = ''; // Clear previous records
+
+        // Populate the table with records
+        data.forEach(record => {
+          const row = `
+            <tr>
+              <td>${record.id}</td>
+              <td>${record.household_id}</td>
+              <td>${record.household_head_name}</td>
+              <td>${record.family_members}</td>
+              <td>${record.itns_distributed}</td>
+              <td>${record.distribution_date}</td>
+            </tr>
+          `;
+          tableBody.insertAdjacentHTML('beforeend', row);
+        });
+
+        recordsContainer.style.display = 'block'; // Show records table
+      })
+      .catch(error => {
+        console.log('Failed to load records:', error);
+      });
+    });
+  </script>
 </body>
 </html>

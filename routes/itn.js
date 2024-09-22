@@ -21,7 +21,6 @@ router.get('/', isAuthenticated, (req, res) => {
 
 // API - POST ITN Distribution Data
 router.post('/api/distribution', isAuthenticated, (req, res) => {
-    console.log('ress:: ',req.body)
   const { household_id, household_head_name, family_members, itns_distributed, distribution_date } = req.body;
 
   // Validate required fields
@@ -54,5 +53,16 @@ router.get('/api/distribution', isAuthenticated, (req, res) => {
     res.json(rows);
   });
 });
+
+// Add this route to fetch ITN records
+router.get('/api/itn-records', (req, res) => {
+  db.all('SELECT * FROM itn_distribution', [], (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to retrieve records' });
+    }
+    res.json(rows); // Return records as JSON
+  });
+});
+
 
 module.exports = router;
