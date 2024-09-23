@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ITN Distribution Records</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container2">
+
+    <!-- Sign Out Button -->
+    <div class="sign-out">
+      <a href="/logout">Sign Out</a>
+    </div>
+
+    <h1>ITN Distribution Records</h1>
+
+    <!-- ITN Records Table -->
+    <table id="itnRecordsTable" border="1">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Household ID</th>
+          <th>Household Head Name</th>
+          <th>Family Members</th>
+          <th>ITNs Distributed</th>
+          <th>Distribution Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% records.forEach(record => { %>
+          <tr>
+            <td><%= record.id %></td>
+            <td><%= record.household_id %></td>
+            <td><%= record.household_head_name %></td>
+            <td><%= record.family_members %></td>
+            <td><%= record.itns_distributed %></td>
+            <td><%= record.distribution_date %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+    <!-- Back to Form Button -->
+    <div class="back-button">
+      <a href="/">Back to Form</a>
+    </div>
+
+  </div>
+</body>
+</html>

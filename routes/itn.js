@@ -54,15 +54,15 @@ router.get('/api/distribution', isAuthenticated, (req, res) => {
   });
 });
 
-// Add this route to fetch ITN records
-router.get('/api/itn-records', (req, res) => {
+
+router.get('/records', (req, res) => {
   db.all('SELECT * FROM itn_distribution', [], (err, rows) => {
     if (err) {
-      return res.status(500).json({ error: 'Failed to retrieve records' });
+      return res.status(500).send('Failed to retrieve records.');
     }
-    res.json(rows); // Return records as JSON
+    res.render('records', { records: rows }); // Pass records to the view
   });
-});
+})
 
 
 module.exports = router;

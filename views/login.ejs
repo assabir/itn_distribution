@@ -8,13 +8,12 @@
 </head>
 <body>
   <div class="container">
-    
     <h1>Login to Your Account</h1>
 
     <% if (typeof error !== 'undefined') { %>
       <p class="error"><%= error %></p>
     <% } %>
-    
+
     <form method="POST" action="/login">
       <label for="username">Username</label>
       <input type="text" id="username" name="username" required>

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ITN Distribution</title>
   <link rel="stylesheet" href="/style.css">
 </head>
+
 <body>
   <div class="container">
 
@@ -16,13 +18,14 @@
 
     <!-- View ITN Records Button -->
     <div class="view-itn">
-      <button id="viewRecordsBtn">View ITN Records</button>
+      <a href="/records">
+        <button type="button">View ITN Records</button>
+      </a>
     </div>
-
     <h1>ITN Distribution Form</h1>
 
     <!-- Notification element -->
-    <!-- <div id="notification" style="display:none;"></div> -->
+    <div id="notification" style="display:none;"></div>
 
     <form id="itnForm">
       <label for="householdId">Household ID</label>
@@ -64,7 +67,7 @@
   </div>
 
   <script>
-    document.getElementById('itnForm').addEventListener('submit', function(event) {
+    document.getElementById('itnForm').addEventListener('submit', function (event) {
       event.preventDefault(); // Prevent default form submission
 
       // Collect form data
@@ -78,41 +81,41 @@
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       })
-      .then(response => response.json())
-      .then(data => {
-        // Show notification based on the response
-        // const notification = document.getElementById('notification');
-        alert(data.message)
-        // if (data.error) {
-        //   notification.textContent = data.error;
-        //   notification.style.backgroundColor = 'red'; // Error color
-        // } else {
-        //   notification.textContent = data.message;
-        //   notification.style.backgroundColor = 'green'; // Success color
-        // }
-        // notification.style.display = 'block'; // Show the notification
-      })
-      .catch(error => {
-        // Handle fetch errors
-        const notification = document.getElementById('notification');
-        notification.textContent = 'Failed to submit data';
-        notification.style.backgroundColor = 'red';
-        notification.style.display = 'block';
-      });
+        .then(response => response.json())
+        .then(data => {
+          // Show notification based on the response
+          const notification = document.getElementById('notification');
+          alert(data.message)
+          if (data.error) {
+            notification.textContent = data.error;
+            notification.style.backgroundColor = 'red'; // Error color
+          } else {
+            notification.textContent = data.message;
+            notification.style.backgroundColor = 'green'; // Success color
+          }
+          notification.style.display = 'block'; // Show the notification
+        })
+        .catch(error => {
+          // Handle fetch errors
+          const notification = document.getElementById('notification');
+          notification.textContent = 'Failed to submit data';
+          notification.style.backgroundColor = 'red';
+          notification.style.display = 'block';
+        });
     });
 
     // Handle view ITN records button click
-    document.getElementById('viewRecordsBtn').addEventListener('click', function() {
+    document.getElementById('viewRecordsBtn').addEventListener('click', function () {
       fetch('/api/itn-records') // Endpoint to get ITN records
-      .then(response => response.json())
-      .then(data => {
-        const recordsContainer = document.getElementById('recordsContainer');
-        const tableBody = document.querySelector('#itnRecordsTable tbody');
-        tableBody.innerHTML = ''; // Clear previous records
+        .then(response => response.json())
+        .then(data => {
+          const recordsContainer = document.getElementById('recordsContainer');
+          const tableBody = document.querySelector('#itnRecordsTable tbody');
+          tableBody.innerHTML = ''; // Clear previous records
 
-        // Populate the table with records
-        data.forEach(record => {
-          const row = `
+          // Populate the table with records
+          data.forEach(record => {
+            const row = `
             <tr>
               <td>${record.id}</td>
               <td>${record.household_id}</td>
@@ -122,15 +125,16 @@
               <td>${record.distribution_date}</td>
             </tr>
           `;
-          tableBody.insertAdjacentHTML('beforeend', row);
-        });
+            tableBody.insertAdjacentHTML('beforeend', row);
+          });
 
-        recordsContainer.style.display = 'block'; // Show records table
-      })
-      .catch(error => {
-        console.log('Failed to load records:', error);
-      });
+          recordsContainer.style.display = 'block'; // Show records table
+        })
+        .catch(error => {
+          console.log('Failed to load records:', error);
+        });
     });
   </script>
 </body>
+
 </html>
