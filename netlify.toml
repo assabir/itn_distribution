@@ -1,0 +1,9 @@
+[build]
+base = "/"
+publish = "view/"
+command = "npm run build"
+functions = "routes/"
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
